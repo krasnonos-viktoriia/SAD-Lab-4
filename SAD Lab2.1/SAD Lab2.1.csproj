@@ -4,9 +4,10 @@
     <OutputType>Exe</OutputType>
 	  <RootNamespace>SAD_Lab2._1</RootNamespace>
 	  <AssemblyName>SAD_Lab2.1</AssemblyName>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
