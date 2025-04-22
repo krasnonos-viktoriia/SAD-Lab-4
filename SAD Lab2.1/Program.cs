@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace SAD_Lab2._1
 {
@@ -10,6 +10,7 @@ namespace SAD_Lab2._1
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

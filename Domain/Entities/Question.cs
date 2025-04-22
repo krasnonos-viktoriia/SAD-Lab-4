@@ -14,9 +14,9 @@ namespace Domain.Entities
 
         // Зв’язки
         public int UserId { get; set; } // тільки менеджер може створити
-        public User User { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
 
         public int PlaceId { get; set; }
-        public Place Place { get; set; } = null!;
+        public virtual Place Place { get; set; } = null!;
     }
 }

@@ -16,6 +16,6 @@ namespace Domain.Entities
 
         // Зв’язки
         public int PlaceId { get; set; }
-        public Place Place { get; set; } = null!;
+        public virtual Place Place { get; set; } = null!;
     }
 }

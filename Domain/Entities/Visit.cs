@@ -12,9 +12,9 @@ namespace Domain.Entities
         public DateTime VisitDate { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
 
         public int PlaceId { get; set; }
-        public Place Place { get; set; } = null!;
+        public virtual Place Place { get; set; } = null!;
     }
 }

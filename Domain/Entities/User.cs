@@ -17,8 +17,8 @@ namespace Domain.Entities
         public Role Role { get; set; }
 
         // Зв’язки
-        public ICollection<Review> Reviews { get; set; } = new List<Review>();
-        public ICollection<Question> Questions { get; set; } = new List<Question>();
-        public ICollection<Visit> Visits { get; set; } = new List<Visit>();
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+        public virtual ICollection<Visit> Visits { get; set; } = new List<Visit>();
     }
 }
