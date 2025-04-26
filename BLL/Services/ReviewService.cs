@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using DAL.UnitOfWork;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
@@ -15,6 +16,14 @@ namespace BLL.Services
 
         public async Task<IEnumerable<Review>> GetAllAsync() =>
             await _unitOfWork.Reviews.GetAllAsync();
+
+        public async Task<IEnumerable<Review>> GetAllWithIncludesAsync()
+        {
+            return await _unitOfWork.Set<Review>()
+                .Include(r => r.Place)
+                .Include(r => r.User)
+                .ToListAsync();
+        }
 
         public async Task<Review?> GetByIdAsync(int id) =>
             await _unitOfWork.Reviews.GetByIdAsync(id);

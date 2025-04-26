@@ -1,6 +1,7 @@
 ﻿using DAL.Repositories;
 using Domain.Entities;
 using DAL.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.UnitOfWork
 {
@@ -29,6 +30,10 @@ namespace DAL.UnitOfWork
         public async Task<int> SaveAsync()
         {
             return await _context.SaveChangesAsync();
+        }
+        public DbSet<TEntity> Set<TEntity>() where TEntity : class
+        {
+            return _context.Set<TEntity>();
         }
 
         public void Dispose()

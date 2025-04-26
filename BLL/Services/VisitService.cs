@@ -17,6 +17,21 @@ namespace BLL.Services
         public async Task<IEnumerable<Visit>> GetAllAsync() =>
             await _unitOfWork.Visits.GetAllAsync();
 
+        public async Task<IEnumerable<Visit>> GetByUserIdAsync(int userId)
+        {
+            return await _unitOfWork.Set<Visit>()
+                .Where(v => v.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Visit>> GetByUserIdWithIncludesAsync(int userId)
+        {
+            return await _unitOfWork.Set<Visit>()
+                .Include(v => v.Place)
+                .Where(v => v.UserId == userId)
+                .ToListAsync();
+        }
+
         public async Task<Visit?> GetByIdAsync(int id) =>
             await _unitOfWork.Visits.GetByIdAsync(id);
 
@@ -36,7 +51,7 @@ namespace BLL.Services
             }
         }
 
-        public async Task<IEnumerable<Visit>> GetByUserIdAsync(int userId) =>
-            await _unitOfWork.Visits.FindAsync(v => v.UserId == userId);
+        //public async Task<IEnumerable<Visit>> GetByUserIdAsync(int userId) =>
+        //    await _unitOfWork.Visits.FindAsync(v => v.UserId == userId);
     }
 }

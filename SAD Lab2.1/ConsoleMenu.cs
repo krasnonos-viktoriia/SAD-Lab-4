@@ -149,8 +149,8 @@ namespace SAD_Lab2._1
                 Console.WriteLine("3. Додати місце, де я побував");
                 Console.WriteLine("4. Переглянути питання та відповіді");
                 Console.WriteLine("5. Дати відповідь на питання");
-                Console.WriteLine("6. Додати відгук");
-                Console.WriteLine("7. Переглянути відгуки");
+                Console.WriteLine("6. Переглянути відгуки");
+                Console.WriteLine("7. Додати відгук"); 
                 Console.WriteLine("8. Додати додаткову інформацію");
                 Console.WriteLine("0. Вийти");
 
@@ -164,8 +164,8 @@ namespace SAD_Lab2._1
                     case "3": await AddVisit(); break;
                     case "4": await ShowQuestions(); break;
                     case "5": await AnswerQuestion(); break;
-                    case "6": await AddReview(); break;
-                    case "7": await ShowReviews(); break;
+                    case "6": await ShowReviews(); break;
+                    case "7": await AddReview(); break;
                     case "8": await AddMedia(); break;
                     case "0": return;
                     default:
@@ -279,7 +279,8 @@ namespace SAD_Lab2._1
         private async Task ShowVisitedPlaces()
         {
             Console.Clear();
-            var visits = await _visits.GetByUserIdAsync(_currentUser!.Id);
+            //var visits = await _visits.GetByUserIdAsync(_currentUser!.Id);
+            var visits = await _visits.GetByUserIdWithIncludesAsync(_currentUser!.Id);
             if (!visits.Any())
             {
                 Console.WriteLine("Ви ще не відвідали жодного місця.");
@@ -323,7 +324,8 @@ namespace SAD_Lab2._1
         private async Task ShowReviews()
         {
             Console.Clear();
-            var reviews = await _reviews.GetAllAsync();
+            //var reviews = await _reviews.GetAllAsync();
+             var reviews = await _reviews.GetAllWithIncludesAsync();
             if (!reviews.Any())
             {
                 Console.WriteLine("Немає відгуків.");
@@ -443,7 +445,8 @@ namespace SAD_Lab2._1
         private async Task ShowQuestions()
         {
             Console.Clear();
-            var questions = await _questions.GetAllAsync();
+            //var questions = await _questions.GetAllAsync();
+            var questions = await _questions.GetAllWithIncludesAsync();
             if (!questions.Any())
             {
                 Console.WriteLine("Немає питань.");
