@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using SAD_Lab2._1.DAL.Data;
+using DAL.Data;
 using DAL.Repositories;
 
 namespace DAL.Repositories
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly AppDbContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public GenericRepository(AppDbContext context)
+        public Repository(AppDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

@@ -1,9 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
 
-namespace SAD_Lab2._1.DAL.Data
+namespace DAL.Data
 {
     public class AppDbContext : DbContext
     {
@@ -33,8 +31,6 @@ namespace SAD_Lab2._1.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Якщо потрібні Fluent API зв’язки — додай тут
         }
     }
 }

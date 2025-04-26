@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SAD_Lab2._1.DAL.Data;
+using DAL.Data;
 
 #nullable disable
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250422082123_InitialCreate")]
+    [Migration("20250426152645_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

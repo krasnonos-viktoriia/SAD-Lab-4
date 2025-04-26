@@ -1,6 +1,6 @@
 ﻿using DAL.Repositories;
 using Domain.Entities;
-using SAD_Lab2._1.DAL.Data;
+using DAL.Data;
 
 namespace DAL.UnitOfWork
 {
@@ -18,12 +18,12 @@ namespace DAL.UnitOfWork
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
-            Users = new GenericRepository<User>(context);
-            Places = new GenericRepository<Place>(context);
-            Reviews = new GenericRepository<Review>(context);
-            Questions = new GenericRepository<Question>(context);
-            Visits = new GenericRepository<Visit>(context);
-            MediaFiles = new GenericRepository<MediaFile>(context);
+            Users = new Repository<User>(context);
+            Places = new Repository<Place>(context);
+            Reviews = new Repository<Review>(context);
+            Questions = new Repository<Question>(context);
+            Visits = new Repository<Visit>(context);
+            MediaFiles = new Repository<MediaFile>(context);
         }
 
         public async Task<int> SaveAsync()
