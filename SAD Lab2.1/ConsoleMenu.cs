@@ -158,8 +158,9 @@ namespace SAD_Lab2._1
                 Console.WriteLine("4. Переглянути питання та відповіді");
                 Console.WriteLine("5. Дати відповідь на питання");
                 Console.WriteLine("6. Переглянути відгуки");
-                Console.WriteLine("7. Додати відгук"); 
-                Console.WriteLine("8. Додати додаткову інформацію");
+                Console.WriteLine("7. Додати відгук");
+                Console.WriteLine("8. Переглянути додаткову інформацію");
+                Console.WriteLine("9. Додати додаткову інформацію");
                 Console.WriteLine("0. Вийти");
 
                 Console.Write("Ваш вибір: ");
@@ -174,7 +175,8 @@ namespace SAD_Lab2._1
                     case "5": await AnswerQuestion(); break;
                     case "6": await ShowReviews(); break;
                     case "7": await AddReview(); break;
-                    case "8": await AddMedia(); break;
+                    case "8": await ShowAllMedia(); break;
+                    case "9": await AddMedia(); break;
                     case "0": return;
                     default:
                         Console.WriteLine("Невірний вибір.");
@@ -199,6 +201,8 @@ namespace SAD_Lab2._1
                 Console.WriteLine("6. Переглянути всі питання");
                 Console.WriteLine("7. Додати питання");
                 Console.WriteLine("8. Видалити питання");
+                Console.WriteLine("9. Переглянути додаткову інформацію");
+                Console.WriteLine("10. Видалити додаткову інформацію");
                 Console.WriteLine("0. Вийти");
 
                 Console.Write("Ваш вибір: ");
@@ -214,6 +218,8 @@ namespace SAD_Lab2._1
                     case "6": await ShowQuestions(); break;
                     case "7": await AddQuestion(); break;
                     case "8": await DeleteQuestion(); break;
+                    case "9": await ShowAllMedia(); break;
+                    case "10": await DeleteMedia(); break;
                     case "0": return;
                     default:
                         Console.WriteLine("Невірний вибір.");
@@ -418,6 +424,29 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Виводить усі медіафайли з бази
+        private async Task ShowAllMedia()
+        {
+            Console.Clear();
+            var places = await _places.GetAllAsync();
+            var media = await _media.GetAllAsync();
+            if (!media.Any())
+            {
+                Console.WriteLine("Медіафайли відсутні.");
+                Pause();
+                return;
+            }
+
+            Console.WriteLine("Усі медіафайли:");
+            foreach (var f in media)
+            {
+                Console.WriteLine($"ID: {f.Id}, Тип: {f.FileType}, Шлях/URL: {f.FilePath}, Місце: [{f.PlaceId}]: {f.Place.Name}");
+            }
+
+            Pause();
+        }
+
+
         // Додавання медіафайлу.
         private async Task AddMedia()
         {
@@ -457,6 +486,23 @@ namespace SAD_Lab2._1
             else
             {
                 Console.WriteLine("Некоректний ID місця.");
+            }
+            Pause();
+        }
+
+        // Видаляє медіафайл за ID
+        private async Task DeleteMedia()
+        {
+            Console.Clear();
+            Console.Write("Введіть ID медіафайлу для видалення: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+                await _media.DeleteAsync(id);
+                Console.WriteLine("Медіафайл видалено (якщо існував).");
+            }
+            else
+            {
+                Console.WriteLine("Некоректний ID.");
             }
             Pause();
         }

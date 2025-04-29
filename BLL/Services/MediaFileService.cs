@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using DAL.UnitOfWork;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
