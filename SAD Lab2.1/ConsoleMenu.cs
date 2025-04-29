@@ -1,15 +1,15 @@
-﻿using BLL.Interfaces;
-using BLL.Services;
+﻿using BLL.Services;
 using DAL.Data;
 using DAL.UnitOfWork;
 using Domain.Entities;
 using Domain.Entities.Enums;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SAD_Lab2._1
 {
+    // Клас ConsoleMenu керує взаємодією з користувачем через консольний інтерфейс.
     public class ConsoleMenu
     {
+        // Сервіси для взаємодії з відповідними сутностями
         private readonly UserService _users;
         private readonly PlaceService _places;
         private readonly ReviewService _reviews;
@@ -17,8 +17,10 @@ namespace SAD_Lab2._1
         private readonly VisitService _visits;
         private readonly MediaFileService _media;
 
+        // Поточний користувач, який увійшов у систему
         private User? _currentUser;
 
+        // Ініціалізує сервіси через патерн UnitOfWork для роботи з базою даних
         public ConsoleMenu(AppDbContext context)
         {
             var unitOfWork = new UnitOfWork(context);
@@ -31,12 +33,15 @@ namespace SAD_Lab2._1
             _media = new MediaFileService(unitOfWork);
         }
 
+
+        // Призупиняє виконання до натискання клавіші, потім очищає консоль
         private void Pause()
         {
             Console.ReadKey();
             Console.Clear();
         }
 
+        // Основний цикл, що дозволяє обирати режим користувача або менеджера.
         public async Task RunAsync()
         {
             while (true)
@@ -66,6 +71,7 @@ namespace SAD_Lab2._1
             }
         }
 
+        // Обробка входу користувача, з можливістю створення нового.
         private async Task HandleUserLogin()
         {
             Console.Clear();
@@ -100,6 +106,7 @@ namespace SAD_Lab2._1
             await UserMenu();
         }
 
+        // Обробка входу менеджера, обмеженого конкретною email-адресою.
         private async Task HandleManagerLogin()
         {
             Console.Clear();
@@ -138,6 +145,7 @@ namespace SAD_Lab2._1
             }
         }
 
+        // Меню користувача
         private async Task UserMenu()
         {
             while (true)
@@ -176,6 +184,7 @@ namespace SAD_Lab2._1
             }
         }
 
+        // Меню менеджера
         private async Task ManagerMenu()
         {
             while (true)
@@ -214,6 +223,7 @@ namespace SAD_Lab2._1
             }
         }
 
+        // Виведення всіх місць з бази.
         private async Task ShowPlaces()
         {
             Console.Clear();
@@ -235,6 +245,8 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+
+        // Додавання нового місця.
         private async Task AddPlace()
         {
             Console.Clear();
@@ -258,6 +270,8 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+
+        // Видалення місця за ID.
         private async Task DeletePlace()
         {
             Console.Clear();
@@ -276,10 +290,11 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+
+        // Виведення відвіданих користувачем місць.
         private async Task ShowVisitedPlaces()
         {
             Console.Clear();
-            //var visits = await _visits.GetByUserIdAsync(_currentUser!.Id);
             var visits = await _visits.GetByUserIdWithIncludesAsync(_currentUser!.Id);
             if (!visits.Any())
             {
@@ -296,6 +311,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Додавання нового запису про відвідування.
         private async Task AddVisit()
         {
             Console.Clear();
@@ -321,10 +337,10 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Виведення всіх відгуків.
         private async Task ShowReviews()
         {
             Console.Clear();
-            //var reviews = await _reviews.GetAllAsync();
              var reviews = await _reviews.GetAllWithIncludesAsync();
             if (!reviews.Any())
             {
@@ -345,6 +361,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Додавання нового відгуку до місця.
         private async Task AddReview()
         {
             Console.Clear();
@@ -382,6 +399,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Видалення відгуку за ID.
         private async Task DeleteReview()
         {
             Console.Clear();
@@ -400,6 +418,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Додавання медіафайлу.
         private async Task AddMedia()
         {
             Console.Clear();
@@ -442,6 +461,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Виведення всіх питань і відповідей.
         private async Task ShowQuestions()
         {
             Console.Clear();
@@ -464,6 +484,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Додавання нового питання до місця.
         private async Task AddQuestion()
         {
             Console.Clear();
@@ -491,6 +512,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Відповідь на одне з невідповіданих питань.
         private async Task AnswerQuestion()
         {
             Console.Clear();
@@ -533,6 +555,7 @@ namespace SAD_Lab2._1
             Pause();
         }
 
+        // Видалення питання за ID.
         private async Task DeleteQuestion()
         {
             Console.Clear();
@@ -552,3 +575,5 @@ namespace SAD_Lab2._1
         }
     }
 }
+
+

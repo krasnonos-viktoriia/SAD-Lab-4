@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
 {
+    // Контекст бази даних, що забезпечує доступ до таблиць Users, Places, Reviews, Questions, Visits та MediaFiles за допомогою Entity Framework.
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -21,13 +22,15 @@ namespace DAL.Data
             DatabasePath = Path.Combine(folder, "places.db");
         }
 
+        // Налаштування підключення до SQLite з використанням лінивого завантаження та вказівкою шляху до БД.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseLazyLoadingProxies()
+                .UseLazyLoadingProxies()  // Ліниве завантаження активоване
                 .UseSqlite($"Data Source={DatabasePath}");
         }
 
+        // Налаштування моделей при їх формуванні.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

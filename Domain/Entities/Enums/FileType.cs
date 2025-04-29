@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.Enums
 {
+    // Перерахування, що визначає типи файлів, що можуть бути представлені в системі.
     public enum FileType
     {
-        Photo,
-        Video,
-        Audio,
-        Link,
-        Other
+        Photo, // Фото
+        Video, // Відео
+        Audio, // Аудіо
+        Link, // Посилання
+        Other // Інший тип
     }
 }
