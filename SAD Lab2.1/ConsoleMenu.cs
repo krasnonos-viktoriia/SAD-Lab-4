@@ -621,5 +621,3 @@ namespace SAD_Lab2._1
         }
     }
 }
-
-
