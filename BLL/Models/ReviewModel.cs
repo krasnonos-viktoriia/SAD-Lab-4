@@ -9,5 +9,9 @@
 
         public int UserId { get; set; }
         public int PlaceId { get; set; }
+
+        //// Додавання зв'язків
+        public UserModel? User { get; set; }
+        public PlaceModel? Place { get; set; }
     }
 }

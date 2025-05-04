@@ -1,8 +1,11 @@
-﻿using BLL.Services;
+﻿using AutoMapper;
+using BLL.Models;
+using BLL.Services;
 using DAL.Data;
 using DAL.UnitOfWork;
-using Domain.Entities;
-using Domain.Entities.Enums;
+using BLL.Models;
+//using Domain.Entities;
+//using Domain.Entities.Enums;
 
 
 namespace SAD_Lab2._1
@@ -19,19 +22,20 @@ namespace SAD_Lab2._1
         private readonly MediaFileService _media;
 
         // Поточний користувач, який увійшов у систему
-        private User? _currentUser;
+        //private User? _currentUser;
+        private UserModel _currentUser;
 
         // Ініціалізує сервіси через патерн UnitOfWork для роботи з базою даних
-        public ConsoleMenu(AppDbContext context)
+        public ConsoleMenu(AppDbContext context, IMapper mapper)
         {
             var unitOfWork = new UnitOfWork(context);
 
-            _users = new UserService(unitOfWork);
-            _places = new PlaceService(unitOfWork);
-            _reviews = new ReviewService(unitOfWork);
-            _questions = new QuestionService(unitOfWork);
-            _visits = new VisitService(unitOfWork);
-            _media = new MediaFileService(unitOfWork);
+            _users = new UserService(unitOfWork, mapper);
+            _places = new PlaceService(unitOfWork, mapper);
+            _reviews = new ReviewService(unitOfWork, mapper);
+            _questions = new QuestionService(unitOfWork, mapper);
+            _visits = new VisitService(unitOfWork, mapper);
+            _media = new MediaFileService(unitOfWork, mapper);
         }
 
 
@@ -87,11 +91,11 @@ namespace SAD_Lab2._1
                 Console.Write("Введіть ваше ім’я: ");
                 var name = Console.ReadLine();
 
-                var newUser = new User
+                var newUser = new UserModel
                 {
                     Name = name!,
                     Email = email!,
-                    Role = Role.Regular
+                    Role = UserModel.RoleEnum.Regular 
                 };
 
                 await _users.AddAsync(newUser);
@@ -128,11 +132,11 @@ namespace SAD_Lab2._1
 
                 if (_currentUser == null)
                 {
-                    _currentUser = new User
+                    _currentUser = new UserModel
                     {
                         Name = "Admin",
                         Email = email,
-                        Role = Role.Manager
+                        Role = UserModel.RoleEnum.Manager
                     };
 
                     await _users.AddAsync(_currentUser);
@@ -266,7 +270,7 @@ namespace SAD_Lab2._1
             Console.Write("Опис: ");
             var desc = Console.ReadLine();
 
-            await _places.AddAsync(new Place
+            await _places.AddAsync(new PlaceModel
             {
                 Name = name!,
                 Address = address!,
@@ -327,7 +331,7 @@ namespace SAD_Lab2._1
             Console.Write("Введіть ID місця, яке ви відвідали: ");
             if (int.TryParse(Console.ReadLine(), out int placeId))
             {
-                var visit = new Visit
+                var visit = new VisitModel
                 {
                     UserId = _currentUser!.Id,
                     PlaceId = placeId,
@@ -383,7 +387,7 @@ namespace SAD_Lab2._1
                     Console.Write("Коментар: ");
                     string comment = Console.ReadLine()!;
 
-                    await _reviews.AddAsync(new Review
+                    await _reviews.AddAsync(new ReviewModel
                     {
                         UserId = _currentUser!.Id,
                         PlaceId = placeId,
@@ -466,11 +470,11 @@ namespace SAD_Lab2._1
 
                 if (int.TryParse(Console.ReadLine(), out int fileTypeChoice) && fileTypeChoice >= 1 && fileTypeChoice <= 5)
                 {
-                    var fileType = (FileType)(fileTypeChoice - 1);
+                    var fileType = (MediaFileModel.FileTypeEnum)(fileTypeChoice - 1);
                     Console.Write("Введіть шлях до файлу або URL: ");
                     var path = Console.ReadLine()!;
 
-                    await _media.AddAsync(new MediaFile
+                    await _media.AddAsync(new MediaFileModel
                     {
                         PlaceId = placeId,
                         FilePath = path,
@@ -543,7 +547,7 @@ namespace SAD_Lab2._1
                 Console.Write("Ваше запитання: ");
                 string questionText = Console.ReadLine()!;
 
-                await _questions.AddAsync(new Question
+                await _questions.AddAsync(new QuestionModel
                 {
                     PlaceId = placeId,
                     UserId = _currentUser!.Id,

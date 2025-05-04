@@ -8,5 +8,8 @@
 
         public int UserId { get; set; }
         public int PlaceId { get; set; }
+
+        public UserModel? User { get; set; }
+        public PlaceModel? Place { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using DAL.Data;
+﻿using AutoMapper;
+using BLL.MappingProfiles;
+using DAL.Data;
 using System.Text;
 
 namespace SAD_Lab2._1
@@ -15,9 +17,17 @@ namespace SAD_Lab2._1
             Console.InputEncoding = Encoding.GetEncoding(1251); // Встановлення кодування для вводу.
             Console.OutputEncoding = Encoding.UTF8; // Встановлення кодування для виводу.
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                // Тут додайте свої профілі мапінгу
+                cfg.AddProfile<MappingProfile>(); // приклад
+            });
+
+            IMapper mapper = config.CreateMapper();
+
             // Ініціалізація контексту бази даних і запуск меню.
             var dbContext = new AppDbContext();
-            var menu = new ConsoleMenu(dbContext);
+            var menu = new ConsoleMenu(dbContext, mapper);
             await menu.RunAsync();
         }
     }
