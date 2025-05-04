@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using BLL.Models;
+using Domain.Entities;
 
 namespace BLL.Interfaces
 {
@@ -6,18 +7,18 @@ namespace BLL.Interfaces
     public interface IVisitService
     {
         // Асинхронно отримує всі відвідування.
-        Task<IEnumerable<Visit>> GetAllAsync();
+        Task<IEnumerable<VisitModel>> GetAllAsync();
 
         // Асинхронно отримує відвідування за його ідентифікатором.
-        Task<Visit?> GetByIdAsync(int id);
+        Task<VisitModel?> GetByIdAsync(int id);
 
         // Асинхронно додає новий запис про відвідування.
-        Task AddAsync(Visit visit);
+        Task AddAsync(VisitModel visit);
 
         // Асинхронно видаляє запис про відвідування за ідентифікатором.
         Task DeleteAsync(int id);
 
         // Асинхронно отримує всі відвідування певного користувача.
-        Task<IEnumerable<Visit>> GetByUserIdAsync(int userId);
+        Task<IEnumerable<VisitModel>> GetByUserIdAsync(int userId);
     }
 }

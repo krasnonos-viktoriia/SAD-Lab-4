@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using BLL.Models;
+using Domain.Entities;
 
 namespace BLL.Interfaces
 {
@@ -6,18 +7,18 @@ namespace BLL.Interfaces
     public interface IMediaFileService
     {
         // Асинхронно отримує всі медіафайли.
-        Task<IEnumerable<MediaFile>> GetAllAsync();
+        Task<IEnumerable<MediaFileModel>> GetAllAsync();
 
         // Асинхронно отримує медіафайл за його ідентифікатором.
-        Task<MediaFile?> GetByIdAsync(int id);
+        Task<MediaFileModel?> GetByIdAsync(int id);
 
         // Асинхронно додає новий медіафайл.
-        Task AddAsync(MediaFile file);
+        Task AddAsync(MediaFileModel file);
 
         // Асинхронно видаляє медіафайл за ідентифікатором.
         Task DeleteAsync(int id);
 
         // Асинхронно отримує всі медіафайли, що належать певному місцю.
-        Task<IEnumerable<MediaFile>> GetByPlaceIdAsync(int placeId);
+        Task<IEnumerable<MediaFileModel>> GetByPlaceIdAsync(int placeId);
     }
 }

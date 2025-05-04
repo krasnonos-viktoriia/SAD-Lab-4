@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using BLL.Models;
+using Domain.Entities;
 
 namespace BLL.Interfaces
 {
@@ -6,16 +7,16 @@ namespace BLL.Interfaces
     public interface IUserService
     {
         // Асинхронно отримує всіх користувачів.
-        Task<IEnumerable<User>> GetAllAsync();
+        Task<IEnumerable<UserModel>> GetAllAsync();
 
         // Асинхронно отримує користувача за його ідентифікатором.
-        Task<User?> GetByIdAsync(int id);
+        Task<UserModel?> GetByIdAsync(int id);
 
         // Асинхронно додає нового користувача.
-        Task AddAsync(User user);
+        Task AddAsync(UserModel user);
 
         // Асинхронно оновлює існуючого користувача.
-        Task UpdateAsync(User user);
+        Task UpdateAsync(UserModel user);
 
         // Асинхронно видаляє користувача за ідентифікатором.
         Task DeleteAsync(int id);

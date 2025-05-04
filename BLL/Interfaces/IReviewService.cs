@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using BLL.Models;
+using Domain.Entities;
 
 namespace BLL.Interfaces
 {
@@ -6,21 +7,21 @@ namespace BLL.Interfaces
     public interface IReviewService
     {
         // Асинхронно отримує всі відгуки.
-        Task<IEnumerable<Review>> GetAllAsync();
+        Task<IEnumerable<ReviewModel>> GetAllAsync();
 
         // Асинхронно отримує відгук за його ідентифікатором.
-        Task<Review?> GetByIdAsync(int id);
+        Task<ReviewModel?> GetByIdAsync(int id);
 
         // Асинхронно додає новий відгук.
-        Task AddAsync(Review review);
+        Task AddAsync(ReviewModel review);
 
         // Асинхронно оновлює існуючий відгук.
-        Task UpdateAsync(Review review);
+        Task UpdateAsync(ReviewModel review);
 
         // Асинхронно видаляє відгук за ідентифікатором.
         Task DeleteAsync(int id);
 
         // Асинхронно отримує всі відгуки для певного місця.
-        Task<IEnumerable<Review>> GetByPlaceIdAsync(int placeId);
+        Task<IEnumerable<ReviewModel>> GetByPlaceIdAsync(int placeId);
     }
 }

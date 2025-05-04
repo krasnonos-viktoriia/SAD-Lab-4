@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using BLL.Models;
+using Domain.Entities;
 
 namespace BLL.Interfaces
 {
@@ -6,16 +7,16 @@ namespace BLL.Interfaces
     public interface IQuestionService
     {
         // Асинхронно отримує всі запитання.
-        Task<IEnumerable<Question>> GetAllAsync();
+        Task<IEnumerable<QuestionModel>> GetAllAsync();
 
         // Асинхронно отримує запитання за його ідентифікатором.
-        Task<Question?> GetByIdAsync(int id);
+        Task<QuestionModel?> GetByIdAsync(int id);
 
         // Асинхронно додає нове запитання.
-        Task AddAsync(Question question);
+        Task AddAsync(QuestionModel question);
 
         // Асинхронно оновлює запитання.
-        Task UpdateAsync(Question question);
+        Task UpdateAsync(QuestionModel question);
 
         // Асинхронно видаляє запитання за ідентифікатором.
         Task DeleteAsync(int id);

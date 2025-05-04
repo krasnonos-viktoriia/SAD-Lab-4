@@ -1,4 +1,6 @@
-﻿using BLL.Interfaces;
+﻿using AutoMapper;
+using BLL.Interfaces;
+using BLL.Models;
 using DAL.UnitOfWork;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -9,40 +11,51 @@ namespace BLL.Services
     public class ReviewService : IReviewService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         // Ініціалізація сервісу через інтерфейс UnitOfWork.
-        public ReviewService(IUnitOfWork unitOfWork)
+        public ReviewService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         // Отримання всіх відгуків.
-        public async Task<IEnumerable<Review>> GetAllAsync() =>
-            await _unitOfWork.Reviews.GetAllAsync();
+        public async Task<IEnumerable<ReviewModel>> GetAllAsync()
+        {
+            var reviews = await _unitOfWork.Reviews.GetAllAsync();
+            return _mapper.Map<IEnumerable<ReviewModel>>(reviews);
+        }
 
         // Отримання всіх відгуків з додатковими даними про місце та користувача.
-        public async Task<IEnumerable<Review>> GetAllWithIncludesAsync()
+        public async Task<IEnumerable<ReviewModel>> GetAllWithIncludesAsync()
         {
-            return await _unitOfWork.Set<Review>()
-                .Include(r => r.Place)  // Жадібне завантаження для властивості Place
-                .Include(r => r.User)   // Жадібне завантаження для властивості User
-                .ToListAsync();
+            var reviews = await _unitOfWork.Set<Review>()
+               .Include(r => r.Place)  // Жадібне завантаження для властивості Place
+               .Include(r => r.User)   // Жадібне завантаження для властивості User
+               .ToListAsync();
+            return _mapper.Map<IEnumerable<ReviewModel>>(reviews);
         }
 
         // Отримання відгуку за ідентифікатором.
-        public async Task<Review?> GetByIdAsync(int id) =>
-            await _unitOfWork.Reviews.GetByIdAsync(id);
+        public async Task<ReviewModel?> GetByIdAsync(int id)
+        {
+            var review = await _unitOfWork.Reviews.GetByIdAsync(id);
+            return review != null ? _mapper.Map<ReviewModel>(review) : null;
+        }
 
         // Додавання нового відгуку.
-        public async Task AddAsync(Review review)
+        public async Task AddAsync(ReviewModel reviewModel)
         {
+            var review = _mapper.Map<Review>(reviewModel);
             await _unitOfWork.Reviews.AddAsync(review);
             await _unitOfWork.SaveAsync();
         }
 
         // Оновлення існуючого відгуку.
-        public async Task UpdateAsync(Review review)
+        public async Task UpdateAsync(ReviewModel reviewModel)
         {
+            var review = _mapper.Map<Review>(reviewModel);
             _unitOfWork.Reviews.Update(review);
             await _unitOfWork.SaveAsync();
         }
@@ -59,7 +72,10 @@ namespace BLL.Services
         }
 
         // Отримання всіх відгуків для конкретного місця.
-        public async Task<IEnumerable<Review>> GetByPlaceIdAsync(int placeId) =>
-            await _unitOfWork.Reviews.FindAsync(r => r.PlaceId == placeId);
+        public async Task<IEnumerable<ReviewModel>> GetByPlaceIdAsync(int placeId)
+        {
+            var reviews = await _unitOfWork.Reviews.FindAsync(r => r.PlaceId == placeId);
+            return _mapper.Map<IEnumerable<ReviewModel>>(reviews);
+        }
     }
 }

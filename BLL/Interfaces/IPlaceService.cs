@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using BLL.Models;
+using Domain.Entities;
 
 namespace BLL.Interfaces
 {
@@ -6,16 +7,16 @@ namespace BLL.Interfaces
     public interface IPlaceService
     {
         // Асинхронно отримує всі місця.
-        Task<IEnumerable<Place>> GetAllAsync();
+        Task<IEnumerable<PlaceModel>> GetAllAsync();
 
         // Асинхронно отримує місце за його ідентифікатором.
-        Task<Place?> GetByIdAsync(int id);
+        Task<PlaceModel?> GetByIdAsync(int id);
 
         // Асинхронно додає нове місце.
-        Task AddAsync(Place place);
+        Task AddAsync(PlaceModel place);
 
         // Асинхронно оновлює дані місця.
-        Task UpdateAsync(Place place);
+        Task UpdateAsync(PlaceModel place);
 
         // Асинхронно видаляє місце за ідентифікатором.
         Task DeleteAsync(int id);
