@@ -4,26 +4,27 @@ using Domain.Entities;
 
 namespace BLL.MappingProfiles
 {
+    //Клас для налаштування мапінгу між сутностями Domain та моделями BLL
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            // User
+            //Мапінг між User та UserModel
             CreateMap<User, UserModel>().ReverseMap();
 
-            // Place
+            //Мапінг між Place та PlaceModel
             CreateMap<Place, PlaceModel>().ReverseMap();
 
-            // MediaFile
+            //Мапінг між MediaFile та MediaFileModel
             CreateMap<MediaFile, MediaFileModel>().ReverseMap();
 
-            // Question
+            //Мапінг між Question та QuestionModel
             CreateMap<Question, QuestionModel>().ReverseMap();
 
-            // Review
+            //Мапінг між Review та ReviewModel
             CreateMap<Review, ReviewModel>().ReverseMap();
 
-            // Visit
+            //Мапінг між Visit та VisitModel
             CreateMap<Visit, VisitModel>().ReverseMap();
         }
     }

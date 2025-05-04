@@ -1,5 +1,6 @@
 ﻿namespace BLL.Models
 {
+    //Модель для представлення візиту користувача до місця
     public class VisitModel
     {
         public int Id { get; set; }

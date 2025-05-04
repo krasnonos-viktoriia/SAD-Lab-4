@@ -2,11 +2,10 @@
 
 namespace BLL.Models
 {
+    //Модель для представлення медіа файлів, пов'язаних з місцями
     public class MediaFileModel
     {
         public int Id { get; set; }
-        //public string FileType { get; set; }
-        //public FileType FileType { get; set; } //= null!;
         public string FilePath { get; set; } = null!;
         public int PlaceId { get; set; }
         public PlaceModel? Place { get; set; }

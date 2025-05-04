@@ -1,5 +1,6 @@
 ﻿namespace BLL.Models
 {
+    //Модель для представлення відгуку користувача про місце
     public class ReviewModel
     {
         public int Id { get; set; }
@@ -10,7 +11,6 @@
         public int UserId { get; set; }
         public int PlaceId { get; set; }
 
-        //// Додавання зв'язків
         public UserModel? User { get; set; }
         public PlaceModel? Place { get; set; }
     }

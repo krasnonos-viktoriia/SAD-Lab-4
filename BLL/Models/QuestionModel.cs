@@ -1,5 +1,6 @@
 ﻿namespace BLL.Models
 {
+    //// Модель для представлення питання користувача щодо місця
     public class QuestionModel
     {
         public int Id { get; set; }
