@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.MappingProfiles;
 using DAL.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 namespace SAD_Lab2._1
@@ -26,7 +27,13 @@ namespace SAD_Lab2._1
             IMapper mapper = config.CreateMapper();
 
             // Ініціалізація контексту бази даних і запуск меню.
-            var dbContext = new AppDbContext();
+            //var dbContext = new AppDbContext();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseLazyLoadingProxies()
+                          .UseSqlite("Data Source=places.db");
+
+            var dbContext = new AppDbContext(optionsBuilder.Options);
+
             var menu = new ConsoleMenu(dbContext, mapper);
             await menu.RunAsync();
         }
